@@ -10,6 +10,7 @@ import org.springframework.boot.ansi.Ansi8BitColor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,15 +18,21 @@ public class JackpotService {
 
     private JackpotRepository jackpotRepository;
 
+    public Optional<Jackpot> find(Long id) {
+        return jackpotRepository.findById(id);
+    }
+
     public List<Jackpot> findAll() {
         List<Jackpot> list = jackpotRepository.findAll();
-        //list.stream().forEach(p-> Hibernate.initialize(p.getJackpotNumbers()));
         return list;
     }
 
     public Jackpot save(Jackpot jackpot) {
 
         return jackpotRepository.save(jackpot);
+    }
+    public void delete(Jackpot jackpot) {
+        jackpotRepository.delete(jackpot);
     }
 
 }
