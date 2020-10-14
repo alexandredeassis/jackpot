@@ -1,3 +1,6 @@
+insert into customer(email,name,password) values('deyse.joaquim@gmail.com','deyse joaquim','123');
+insert into bid_master (id) select id from customer where email = 'deyse.joaquim@gmail.com';
+
 insert into lottery(id,max_number,min_number,name) values(1,15,20,'Lotofacil') on conflict do nothing;
 insert into lottery(id,max_number,min_number,name) values(2,6,15,'Megasena') on conflict do nothing;
 

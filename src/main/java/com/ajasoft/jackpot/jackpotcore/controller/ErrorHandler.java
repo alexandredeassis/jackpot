@@ -1,6 +1,7 @@
 package com.ajasoft.jackpot.jackpotcore.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -29,11 +30,14 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(WebExchangeBindException.class)
     public String handlerValidation(WebExchangeBindException ex) {
-        log.error("validationError", ex);
         StringBuilder sb = new StringBuilder();
-        ex.getAllErrors().forEach(e -> sb.append(messageSource.getMessage(e.getCode(), null, Locale.US)).append("\n"));
+        StringBuilder sb1 = new StringBuilder();
+        ex.getAllErrors().forEach(e -> sb.append(messageSource.getMessage(e.getCode(), null, Locale.US)).append(", "));
+        ex.getAllErrors().forEach(e -> sb1.append(e.getDefaultMessage()).append(", "));
+        log.error("validationError - defaultMsg: {}, responseMsg: {} ", sb1.toString(), sb.toString());
         return sb.toString();
     }
+
 
 
 }

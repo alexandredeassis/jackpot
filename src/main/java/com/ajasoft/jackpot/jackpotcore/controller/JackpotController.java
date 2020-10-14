@@ -4,8 +4,10 @@ import com.ajasoft.jackpot.jackpotcore.domain.Jackpot;
 import com.ajasoft.jackpot.jackpotcore.domain.Lottery;
 import com.ajasoft.jackpot.jackpotcore.service.JackpotService;
 import com.ajasoft.jackpot.jackpotcore.service.LotteryService;
+import com.ajasoft.jackpot.jackpotcore.validators.JackpotValidator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,7 @@ import java.util.Optional;
 public class JackpotController {
 
     private JackpotService jackpotService;
+    private JackpotValidator jackpotValidator;
 
     @GetMapping
     public Flux<Jackpot> getAll() {
@@ -94,23 +97,8 @@ public class JackpotController {
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(new JackpotControllerValidation());
-
-    }
-
-}
-
-class JackpotControllerValidation implements Validator {
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return Jackpot.class.equals(aClass);
-    }
-
-    @Override
-    public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "lottery", "lottery.empty");
-        ValidationUtils.rejectIfEmpty(errors, "jackpotNumbers", "jackpotNumbers.empty");
-
+        binder.addValidators(jackpotValidator);
+        log.info("jackpotValidator up");
     }
 }
+
