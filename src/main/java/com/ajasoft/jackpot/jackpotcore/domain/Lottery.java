@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,6 +22,6 @@ public class Lottery {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="lottery_id")
-    private List<LotteryPrice> lotteryPrice;
+    private Set<LotteryPrice> lotteryPrice;
 
 }

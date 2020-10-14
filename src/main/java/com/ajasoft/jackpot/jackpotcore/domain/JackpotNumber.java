@@ -15,8 +15,5 @@ public class JackpotNumber {
     private Long id;
     private int value;
 
-    @ManyToOne
-    @JoinColumn(name="jackpot_id")
-    private Jackpot jackpot;
 
 }
