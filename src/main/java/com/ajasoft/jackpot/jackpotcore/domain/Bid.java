@@ -2,6 +2,7 @@ package com.ajasoft.jackpot.jackpotcore.domain;
 
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +30,7 @@ public class Bid {
     private int minMembers;
 
     private LocalDateTime created;
-    private LocalDateTime limit;
+    private LocalDateTime limitDate;
 
     @Enumerated(value = EnumType.STRING)
     private BidStatus bidStatus;
@@ -38,7 +39,8 @@ public class Bid {
     @JoinColumn(name = "jackpot_id", nullable = false)
     private Jackpot jackpot;
 
-    @OneToMany(mappedBy = "bid", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "bid_id", nullable = false)
     private Set<BidSequence> bidSequences;
 
     @ManyToOne

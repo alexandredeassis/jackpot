@@ -2,6 +2,7 @@ package com.ajasoft.jackpot.jackpotcore.domain;
 
 import lombok.Data;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,8 @@ public class BidSequenceNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int value;
+
 
 }

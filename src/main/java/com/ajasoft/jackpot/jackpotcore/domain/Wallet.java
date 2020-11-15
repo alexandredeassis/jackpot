@@ -17,7 +17,7 @@ public class Wallet {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name="customer_id", unique = true)
+    @JoinColumn(name="customer_id", unique = true, nullable = false)
     private Customer customer;
 
 }

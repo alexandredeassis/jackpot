@@ -24,6 +24,9 @@ public class JackpotValidatorImpl implements JackpotValidator {
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "lottery", "lottery.empty");
 
+        if (errors.getErrorCount() > 0)
+            return;
+
         Jackpot jackpot = (Jackpot) o;
         if (!lotteryService.find(jackpot.getLottery().getId()).isPresent()) {
             errors.rejectValue("lottery", "lottery.notfound", "lottery was not found for id: " + jackpot.getLottery().getId());

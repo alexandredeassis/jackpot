@@ -22,3 +22,6 @@ insert into lottery_price(id,amount,value,lottery_id) values(13,12, 415800,2) on
 insert into lottery_price(id,amount,value,lottery_id) values(14,13, 772200,2) on conflict do nothing;
 insert into lottery_price(id,amount,value,lottery_id) values(15,14, 1351350,2) on conflict do nothing;
 insert into lottery_price(id,amount,value,lottery_id) values(16,15, 2252250,2) on conflict do nothing;
+
+
+insert into jackpot (id, date,description,lottery_id) values(1,now()+ interval '1 day','normal',1) on conflict do nothing;

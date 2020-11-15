@@ -1,7 +1,10 @@
 package com.ajasoft.jackpot.jackpotcore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,20 +18,17 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString(of = "id")
 public class BidSequence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="bid_id", nullable = false)
-    private Bid bid;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="bidsequence_id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "bidsequence_id")
     private Set<BidSequenceNumber> bidSequenceNumbers;
-
 
 
 }
